@@ -55,6 +55,10 @@ ALTER TABLE `orbital-surge-359121.stockdataset.Stock_table2`
 ADD COLUMN timestamp_as_string STRING;
 
 UPDATE `orbital-surge-359121.stockdataset.Stock_table2`
+SET timestamp_as_string = CAST(timestamp AS STRING)
+WHERE TRUE;
+
+UPDATE `orbital-surge-359121.stockdataset.Stock_table2`
 SET timestamp_as_string = REGEXP_REPLACE(timestamp_as_string, r'\\+00', '')
 WHERE TRUE;
 
@@ -70,6 +74,14 @@ SET
   date_column = CAST(SPLIT(timestamp_as_string, ' ')[SAFE_OFFSET(0)] AS DATE),
   time_column = CAST(SPLIT(timestamp_as_string, ' ')[SAFE_OFFSET(1)] AS TIME)
 WHERE TRUE;
+
+"""
+sql_code2= """
+ALTER TABLE `orbital-surge-359121.stockdataset.Stock_table2`
+DROP COLUMN timestamp ;
+
+ALTER TABLE `stockdataset.Stock_table2`
+RENAME COLUMN timestamp_as_string TO Timestamp ;
 
 """
 
