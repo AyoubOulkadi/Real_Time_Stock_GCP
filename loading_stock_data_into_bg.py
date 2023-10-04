@@ -88,6 +88,9 @@ RENAME COLUMN timestamp_as_string TO Timestamp ;
 # Run the SQL query
 query_job = client.query(sql_code)
 query_job = client.query(sql_code1)
+query_job = client.query(sql_code2)
+
+
 
 time.sleep(15)
 
